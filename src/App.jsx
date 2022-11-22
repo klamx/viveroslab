@@ -2,7 +2,7 @@ import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import Login from './pages/Login/Login'
-import Signup from './pages/Signup'
+import Signup from './pages/signup/Signup'
 
 export default function App () {
   return (

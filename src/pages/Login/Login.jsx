@@ -1,32 +1,43 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import './style.css'
-// import Signup from './Signup'
+import { useForm } from '../../hooks/useForm'
+import { login } from '../../helpers/login'
 
 export default function Login () {
+  const [formValues, handleInputChange] = useForm({ mail: '', password: '' })
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    try {
+      login(formValues)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   return (
     <div className='login_container'>
-      <div className='login_form'>
-        <h2>¡Bienvenido/a!</h2>
-        <div className=''>
-          <label className='' htmlFor='username'>Email</label>
-          <input type='text' placeholder='Introduce tu email' name='username' />
+      <form onSubmit={handleSubmit} className='login_form'>
+        <div className='mb-3 col-12'>
+          <label htmlFor='exampleInputEmail1' className='form-label'>Email address</label>
+          <input name='mail' type='email' className='form-control' id='exampleInputEmail1' aria-describedby='emailHelp' onChange={handleInputChange} />
         </div>
-        <div className=''>
-          <label className='' htmlFor='username'>Contraseña</label>
-          <input type='password' placeholder='password' name='password' />
+        <div className='mb-3 col-12'>
+          <label htmlFor='exampleInputPassword1' className='form-label'>Password</label>
+          <input name='password' type='password' className='form-control' id='exampleInputPassword1' onChange={handleInputChange} />
         </div>
-        <div className=''>
-          <label className=''>
-            <input type='checkbox' name='remember' id='remember' />
-            Recuérdame
-          </label>
-          <small><Link to='/signup'>¿Has olvidado la contraseña?</Link></small>
+        <div className='mb-3 form-check col-12'>
+          <input type='checkbox' className='form-check-input' id='exampleCheck1' />
+          <label className='form-check-label' htmlFor='exampleCheck1'>Check me out</label>
         </div>
-        <button>Iniciar Sesión</button>
-        <button>Resgistrar nueva cuenta</button>
-      </div>
-      <img className='login_img' src='/assets/vivero.jpg' alt='vivero' />
+        <div className='mb-3 col-12'>
+          <small><Link to='/signup'>Registrarse</Link></small>
+        </div>
+        <div className='d-grid gap-2 col-12'>
+          <button className='btn btn-primary'>Iniciar Sesión</button>
+        </div>
+      </form>
     </div>
   )
 }
